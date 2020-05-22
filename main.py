@@ -8,6 +8,22 @@ import os
 print('Welcome in tic tac toe\n')
 
 while True:
+    try:
+        difficulty_level = int(input('Chose difficulty level:\n'
+                                     f'{Fore.GREEN}1.Easy {Style.RESET_ALL}\n'
+                                     f'{Fore.YELLOW}2.Medium {Style.RESET_ALL}\n'
+                                     f'{Fore.RED}3.Hard {Style.RESET_ALL}\n'
+                                     f'Your chose: '))
+        # os.system('cls')
+        if difficulty_level > 3:
+            print('Enter number from 1 to 3')
+            continue
+    except:
+        print('Enter number!')
+        continue
+    break
+
+while True:
     win_lose = False
     human_turn = True
     table = create_2d_table_with_index()
@@ -22,7 +38,7 @@ while True:
 
         else:  # bot tour
             # table = chose_field(table, symbol)
-            table = bot_chose_turn(table, symbol)
+            table = bot_chose_turn(table, symbol, difficulty_level)
             human_turn = True
 
         if recognition_of_victory(table):

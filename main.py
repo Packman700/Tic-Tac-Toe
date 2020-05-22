@@ -2,6 +2,7 @@ from table_operations import *
 from procedures import *
 from recognition_of_victory import *
 from colorama import Fore, Style
+from bot_turn import *
 import os
 
 print('Welcome in tic tac toe\n')
@@ -11,18 +12,20 @@ while True:
     human_turn = True
     table = create_2d_table_with_index()
     for turn in range(9):
-        if turn % 2: symbol='{}o{}'.format(Fore.BLUE,Style.RESET_ALL)
-        else: symbol='{}x{}'.format(Fore.RED,Style.RESET_ALL)
+        if turn % 2: symbol='{}o{}'.format(Fore.BLUE, Style.RESET_ALL)
+        else: symbol='{}x{}'.format(Fore.RED, Style.RESET_ALL)
 
         print_table(table)
         if human_turn:
-            table = chose_field(table,symbol)
-            # human_turn = False
-        else:
-            #Tura robota
+            table = chose_field(table, symbol)
+            human_turn = False
+
+        else:  # bot tour
+            # table = chose_field(table, symbol)
+            table = bot_chose_turn(table, symbol)
             human_turn = True
 
-        if recognition_of_victory(table) == True:
+        if recognition_of_victory(table):
             win_lose = True
             print('Test')
             break

@@ -13,19 +13,19 @@ while True:
                                      f'{Fore.GREEN}1.Easy {Style.RESET_ALL}\n'
                                      f'{Fore.YELLOW}2.Medium {Style.RESET_ALL}\n'
                                      f'{Fore.RED}3.Hard {Style.RESET_ALL}\n'
+                                     f'{Fore.WHITE}4.Nightmare {Style.RESET_ALL}\n'
                                      f'Your chose: '))
         # os.system('cls')
-        if difficulty_level > 3:
+        if difficulty_level > 4:
             print('Enter number from 1 to 3')
             continue
     except:
         print('Enter number!')
         continue
     break
-
+human_turn = True
 while True:
     win_lose = False
-    human_turn = True
     table = create_2d_table_with_index()
     for turn in range(9):
         if turn % 2: symbol='{}o{}'.format(Fore.BLUE, Style.RESET_ALL)

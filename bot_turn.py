@@ -43,9 +43,10 @@ def bot_chose_turn(table,symbol,difficulty_level):
         if 5 in empty_num_index and difficulty_level >= 2:
             return chose_field(table, symbol, 5)
 
+        score = defence_2exception_nightmare(empty_num_index, adjacent_fields)
         # Second+ exception
-        # elif difficulty_level >= 4 and len(empty_num_index) == 6 and defence_2exception_nightmare(empty_num_index,adjacent_fields) > 0:
-        #     return chose_field(table, symbol, defence_2exception_nightmare(empty_num_index,adjacent_fields))
+        if difficulty_level >= 4 and len(empty_num_index) == 6 and  score > 0:
+            return chose_field(table, symbol, score)
         
         # First exception
         elif not(all(item in [1,9] for item in empty_num_index) or all(item in [3,7] for item in empty_num_index)) and difficulty_level >= 3 :
@@ -113,46 +114,50 @@ def bot_chose_turn(table,symbol,difficulty_level):
     return table
 
 
-# def defence_2exception_nightmare(empty_num_index, adjacent_fields):
-#     #  Delete values from dic what not in empty list
-#     kay_to_del = []
-#     for key in adjacent_fields.keys():
-#         if key not in empty_num_index:
-#             kay_to_del.append(key)
-#     for kay in kay_to_del:
-#         del adjacent_fields[kay]
-#
-#     for key in adjacent_fields:
-#         try:
-#             for value in adjacent_fields[kay]:
-#                 if value in kay_to_del:
-#                     adjacent_fields[kay].remove(value)
-#         except:
-#             continue
-#     keys = adjacent_fields.keys()
-#     adjacent_fields_copy = copy.deepcopy(adjacent_fields)
-#
-#     #delate all values what represent busy area
-#     kay_to_del2 = []
-#     for i in keys:
-#         for value in adjacent_fields[i]:
-#             if value in kay_to_del:
-#                 adjacent_fields_copy[i].remove(value)
-#         if not len(adjacent_fields_copy[i]) == 1:
-#             kay_to_del2.append(i)
-#
-#     for kay in kay_to_del2:
-#         del adjacent_fields_copy[kay]
-#
-#     for out in adjacent_fields_copy.keys():
-#         if len(adjacent_fields_copy[out]) == 1:
-#             # print(adjacent_fields_copy[key])
-#             # print(key)
-#             # print(adjacent_fields_copy[key][0])
-#             if adjacent_fields_copy[adjacent_fields_copy[out][0]][0] == out:
-#                 if out in [1,3,7,9]:
-#                     return out
-#                     break
-#                 elif adjacent_fields_copy[out][0] in [1,3,7,9]:
-#                     return adjacent_fields_copy[out][0]
-#                     break
+def defence_2exception_nightmare(empty_num_index, adjacent_fields):
+    #  Delete values from dic what not in empty list
+    kay_to_del = []
+    for key in adjacent_fields.keys():
+        if key not in empty_num_index:
+            kay_to_del.append(key)
+    for kay in kay_to_del:
+        del adjacent_fields[kay]
+
+    for key in adjacent_fields:
+        try:
+            for value in adjacent_fields[kay]:
+                if value in kay_to_del:
+                    adjacent_fields[kay].remove(value)
+        except:
+            continue
+    keys = adjacent_fields.keys()
+    adjacent_fields_copy = copy.deepcopy(adjacent_fields)
+
+    #delate all values what represent busy area
+    kay_to_del2 = []
+    for i in keys:
+        for value in adjacent_fields[i]:
+            if value in kay_to_del:
+                adjacent_fields_copy[i].remove(value)
+        if not len(adjacent_fields_copy[i]) == 1:
+            kay_to_del2.append(i)
+
+    for kay in kay_to_del2:
+        del adjacent_fields_copy[kay]
+
+    for out in adjacent_fields_copy.keys():
+        if len(adjacent_fields_copy[out]) == 1:
+            # print(adjacent_fields_copy[key])
+            # print(key)
+            # print(adjacent_fields_copy[key][0])
+            try:
+                if adjacent_fields_copy[adjacent_fields_copy[out][0]][0] == out:
+                    if out in [1,3,7,9]:
+                        return out
+                        break
+                    elif adjacent_fields_copy[out][0] in [1,3,7,9]:
+                        return adjacent_fields_copy[out][0]
+                        break
+            except:
+                pass
+    return 0

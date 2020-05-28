@@ -34,12 +34,18 @@ while True:
         print_table(table)
         if human_turn:
             table = chose_field(table, symbol)
-            human_turn = False
+            if human_turn:
+                human_turn = False
+            else:
+                human_turn = True
 
         else:  # bot tour
             # table = chose_field(table, symbol)
             table = bot_chose_turn(table, symbol, difficulty_level)
-            human_turn = True
+            if human_turn:
+                human_turn = False
+            else:
+                human_turn = True
 
         if recognition_of_victory(table):
             win_lose = True

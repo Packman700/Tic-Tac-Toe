@@ -1,6 +1,9 @@
 import math
 from colorama import Fore, Style
 
+o = '{}o{}'.format(Fore.BLUE, Style.RESET_ALL)
+x = '{}x{}'.format(Fore.RED, Style.RESET_ALL)
+
 def create_2d_table_with_index():
     '''
     This create 3x3 list with index from 1 to 9
@@ -33,7 +36,7 @@ def update_table(table,chose,symbol):
     :return:
     '''
 
-    if table[(math.ceil(chose/3))-1][(chose % 3)-1] == 'x' or table[(math.ceil(chose/3))-1][(chose % 3)-1] == 'o':
+    if table[(math.ceil(chose/3))-1][(chose % 3)-1] == x or table[(math.ceil(chose/3))-1][(chose % 3)-1] == o:
         return False
     else:
         table[(math.ceil(chose / 3)) - 1][(chose % 3) - 1] = symbol
